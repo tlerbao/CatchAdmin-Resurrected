@@ -316,4 +316,54 @@ class Utils
 
         return $cache;
     }
+
+    /**
+     * 生成符合Vue路由的菜单列表
+     * @param array $permissions
+     * @param int $pid
+     * @return array
+     */
+    public static function generateMenuList(array $permissions, int $pid = 0): array
+    {
+        $routes = [];
+
+        // 循环权限列表，构建路由数组。
+        foreach ($permissions as $permission) {
+            if ($permission['type'] === 1 && $pid === $permission['parent_id']) {
+                $p = [
+                    'path' => $permission['route'],
+                    'name' => $permission['module'] . '_' . $permission['permission_mark'],
+                    'component' => $permission['component'],
+                    'meta' => [
+                        'icon' => $permission['icon'],
+                        'title' => $permission['permission_name'],
+                        'isHide' => $permission['is_hidden'],
+                        'isFull' => $permission['is_full'],
+                        'isAffix' => $permission['is_affix'],
+                        'isKeepAlive' => $permission['is_keepalive'],
+                    ],
+                ];
+
+                // 如果权限有重定向，把重定向路径加到路由里。
+                if ($permission['redirect']) {
+                    $p['redirect'] = $permission['redirect'];
+                }
+
+                // 如果权限不需要缓存，设置 noCache。
+                if ($permission['is_keepalive'] === 1) {
+                    $p['meta']['noCache'] = true;
+                }
+
+                // 构建路由的子路由数组。
+                $children = self::generateMenuList($permissions, $permission['id']);
+                if (count($children) > 0) {
+                    $p['children'] = $children;
+                }
+
+                $routes[] = $p;
+            }
+        }
+
+        return $routes;
+    }
 }

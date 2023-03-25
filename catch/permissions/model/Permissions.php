@@ -3,6 +3,7 @@ namespace catchAdmin\permissions\model;
 
 use catchAdmin\permissions\model\search\PermissionsSearch;
 use catcher\base\CatchModel;
+use catcher\Utils;
 use think\helper\Str;
 use think\Model;
 
@@ -11,27 +12,6 @@ class Permissions extends CatchModel
     use PermissionsSearch;
 
     protected $name = 'permissions';
-    
-    protected $field = [
-        'id', //
-        'permission_name', // 菜单名称
-        'parent_id', // 父级ID
-        'level', // 层级
-        'icon',
-        'component', // 组件
-        'redirect',
-        'keepalive',
-        'creator_id',
-        'hidden',
-        'module', // 模块
-        'route', // 路由
-        'permission_mark', // 权限标识
-        'type', // 1 菜单 2 按钮
-        'sort', // 排序字段
-        'created_at', // 创建时间
-        'updated_at', // 更新时间
-        'deleted_at', // 删除状态，null 未删除 timestamp 已删除
-    ];
 
     public const MENU_TYPE = 1;
     public const BTN_TYPE = 2;
@@ -79,12 +59,22 @@ class Permissions extends CatchModel
     public static function getCurrentUserPermissions(array $permissionIds): \think\Collection
     {
         return parent::whereIn('id', $permissionIds)
-                      ->field(['permission_name as title', 'id', 'parent_id',
-                          'route', 'icon', 'component', 'redirect', 'module',
-                          'keepalive as keepAlive', 'type', 'permission_mark', 'hidden'
-                      ])
-                      ->catchOrder()
-                      ->select();
+            ->field(['permission_name as title', 'id', 'parent_id',
+                'route', 'icon', 'component', 'redirect', 'module','is_full as isFull',
+                'is_keepalive as keepAlive', 'type', 'permission_mark', 'is_hidden'
+            ])
+            ->catchOrder()
+            ->select();
+    }
+
+    public static function getCurrentUserMenuList(array $permissionIds)
+    {
+        $list =  [];
+        $data =  parent::whereIn('id', $permissionIds)
+            ->where('type', self::MENU_TYPE)
+            ->catchOrder()
+            ->select()->toArray();
+        return Utils::generateMenuList($data);
     }
 
     /**

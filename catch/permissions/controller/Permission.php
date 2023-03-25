@@ -4,6 +4,7 @@ namespace catchAdmin\permissions\controller;
 
 use catcher\base\CatchRequest as Request;
 use catcher\base\CatchController;
+use catcher\CatchAdmin;
 use catcher\CatchResponse;
 use catcher\exceptions\FailedException;
 use catcher\library\ParseClass;
@@ -50,6 +51,42 @@ class Permission extends CatchController
         return CatchResponse::success($menuList->each(function (&$item) use ($buttonList, $children){
             $item[$children] = $buttonList[$item['id']] ?? [];
         })->toTree());
+    }
+
+    public function options()
+    {
+        return CatchResponse::success(
+            Permissions::where('type', Permissions::MENU_TYPE)
+                ->field(['id', 'permission_name', 'parent_id'])
+                ->catchOrder()
+                ->select()->toTree()
+        );
+    }
+
+    public function modules()
+    {
+        $modules = [];
+
+        foreach(CatchAdmin::getModulesDirectory() as $d) {
+            $module = CatchAdmin::getModuleInfo($d);
+
+            if (!isset($module['alias'])) {
+                continue;
+            }
+
+            if (in_array($module['alias'], ['login'])) {
+                continue;
+            }
+
+            if ($module['enable']) {
+                $modules[] = [
+                    'value' => $module['alias'],
+                    'label' => $module['name']
+                ];
+            }
+        }
+
+        return CatchResponse::success($modules);
     }
 
   /**
