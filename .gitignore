@@ -2,6 +2,9 @@
 /.vscode
 /vendor
 /package
+/public/images
+/public/image
+.DS_Store
 *.log
 .env
 composer.lock
