@@ -4,6 +4,8 @@
 
 本项目是 CatchAdmin 后端的重置版，原项目由 [JaguarJack](https://github.com/jaguarjack/) 开发，基于 ThinkPHP6 的后台管理系统。CatchAdmin 在 ThinkPHP 社区中是 Admin 类系统的佼佼者。
 
+前端项目地址: [https://github.com/tlerbao/CatchAdmin-Vue3](https://github.com/tlerbao/CatchAdmin-Vue3)
+
 ### 为什么要重置 ❓
 
 1. CatchAdmin 作者已经停止更新 ThinkPHP 版,重心已经放在了 Laravel的版本上.
