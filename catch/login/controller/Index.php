@@ -28,14 +28,13 @@ class Index extends CatchController
             $token = $auth->attempt($condition);
 
             $user = $auth->user();
+            unset($user->password);
 
             $this->afterLoginSuccess($user, $token);
             // 登录事件
             $this->loginEvent($user->username);
 
-            return CatchResponse::success([
-                'token' => $token,
-            ], '登录成功');
+            return CatchResponse::success(['token' => $token, 'user' => $user], '登录成功');
         } catch (\Exception $exception) {
             $this->detailWithLoginFailed($exception, $condition);
             $code = $exception->getCode();
