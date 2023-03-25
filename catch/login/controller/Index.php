@@ -59,7 +59,7 @@ class Index extends CatchController
         if (strpos($message, '|') !== false) {
             $username = explode('|', $message)[1];
         } else {
-            $username = $condition['email'];
+            $username = $condition['username'];
         }
 
         $this->loginEvent($username, false);

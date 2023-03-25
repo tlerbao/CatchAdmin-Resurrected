@@ -22,7 +22,7 @@ class CatchAuth
     protected $guard;
 
     // 默认获取
-    protected $username = 'email';
+    protected $username = 'username';
 
     // 校验字段
     protected $password = 'password';
