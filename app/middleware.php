@@ -7,6 +7,6 @@ return [
     // \think\middleware\LoadLangPack::class,
     // Session初始化
    //  \think\middleware\SessionInit::class
-    \catcher\middlewares\DemoMiddleware::class,
     \think\middleware\AllowCrossDomain::class,
+    \catcher\middlewares\DemoMiddleware::class,
 ];

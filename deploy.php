@@ -7,6 +7,8 @@ require 'recipe/common.php';
 
 set('repository', 'git@github.com:tlerbao/CatchAdmin-Resurrected.git');
 
+set('branch', 'demo');
+
 set('composer_options', ' --ignore-platform-reqs');
 
 add('shared_files', [
