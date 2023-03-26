@@ -12,14 +12,19 @@ class LoginLog extends \think\Model
 	protected $name = 'login_log';
 
 	protected $field = [
-		'id', // 
+		'id', //
 		'login_name', // 用户名
 		'login_ip', // 登录地点ip
 		'browser', // 浏览器
 		'os', // 操作系统
 		'login_at', // 登录时间
-		'status', // 1 成功 2 失败   
+		'status', // 1 成功 2 失败
 	];
+
+    public function getLoginAtAttr($value)
+    {
+        return date('Y-m-d H:i:s', $value);
+    }
 
 	public function getList()
 	{

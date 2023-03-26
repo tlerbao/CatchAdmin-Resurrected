@@ -9,3 +9,4 @@
 .env
 composer.lock
 
+deploy.php
