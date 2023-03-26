@@ -1,5 +1,13 @@
 <?php
-
+// +----------------------------------------------------------------------
+// | CatchAdmin [Just Like ～ ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2017~{$year} http://catchadmin.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( https://github.com/yanwenwu/catch-admin/blob/master/LICENSE.txt )
+// +----------------------------------------------------------------------
+// | Author: JaguarJack [ njphper@gmail.com ]
+// +----------------------------------------------------------------------
 
 use think\migration\Seeder;
 
@@ -907,30 +915,6 @@ class PermissionsMenusSeed extends Seeder
     'creator_id' => 1,
     'created_at' => 1587462818,
     'updated_at' => 1678458610,
-    'deleted_at' => 0,
-  ),
-  37 => 
-  array (
-    'id' => 72,
-    'permission_name' => '测试',
-    'parent_id' => 2,
-    'level' => '1-2',
-    'route' => '',
-    'icon' => '',
-    'module' => 'permissions',
-    'permission_mark' => 'user@test',
-    'component' => '',
-    'redirect' => '',
-    'type' => 2,
-    'is_link' => 0,
-    'is_full' => 0,
-    'is_hidden' => 0,
-    'is_affix' => 0,
-    'is_keepalive' => 1,
-    'sort' => 100,
-    'creator_id' => 1,
-    'created_at' => 1678520891,
-    'updated_at' => 1678520891,
     'deleted_at' => 0,
   ),
 );
